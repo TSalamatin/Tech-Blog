@@ -1,0 +1,66 @@
+<main>
+    <section id="catCardProfile">
+        <!-- Removed the <a> tag since it's not needed for this functionality -->
+        <h1 id="cat_name">{{cat.name}}</h1>
+        <img class="catProfile" src="./Cats/{{cat.name}}.jpg" alt="CatPicture">
+        <h2 id="breed">Breed: {{cat.breed}}</h2>
+        <div id="Catinfo">
+            <div class="circleinfo" id="age">I am {{cat.age}} year(s) old</div>
+            <div class="circleinfo" id="size">Size: {{cat.size}}</div>
+            <div class="circleinfo" id="affection">
+                My affection Style: {{cat.affection}}
+            </div>
+            <form id="updateAvailabilityForm">
+                <label>Select your preferred date</label>
+                <input type="date" name="date" placeholder="YYYY-MM-DD" required>
+                <button id="submit-btn" type="submit">Make an Appointment</button>
+            </form>
+            <div id="responseMessage"></div> <!-- Div to display the response message -->
+        </div>
+    </section>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const updateAvailabilityForm = document.getElementById('updateAvailabilityForm'); // Get the form element
+    const responseMessageDiv = document.getElementById('responseMessage'); // Get the response message div
+
+    updateAvailabilityForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        const dateInput = document.querySelector('[name="date"]');
+        const newDate = dateInput.value;
+
+        try {
+            const catId = '{{cat.id}}'; // Replace this with the actual cat ID
+            const url = `http://localhost:3001/api/cat/date/${catId}`;
+
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ date: newDate })
+            });
+
+            if (response.ok) {
+                // Handle success
+                try {
+                    const responseBody = await response.json();
+                  
+                    responseMessageDiv.textContent = responseBody.message; // Update the div with the response message
+                } catch (jsonError) {
+                    console.error('JSON parsing error:', jsonError);
+                    responseMessageDiv.textContent = await response.text(); // Handle non-JSON response (HTML)
+                }
+            } else {
+                // Handle error
+                console.error('Failed to update availability');
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    });
+});
+
+</script>

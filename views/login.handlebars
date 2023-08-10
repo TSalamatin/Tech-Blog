@@ -1,0 +1,29 @@
+<main>
+  <section>
+    <form action="/api/user/" method="POST">
+      <div class="card">
+        <label for="first_name">First name:</label>
+        <input type="text" name="first_name" id="first_name" placeholder="">
+        <label for="last_name">Last name:</label>
+        <input type="text" name="last_name" id="last_name" placeholder="">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="">
+        <button class="btnSubmit" type="submit">Create Account</button>
+      </div>
+    </form>
+  </section>
+
+  <section>
+    <form action="/api/user/login" method="POST">
+      <div class="card">
+        <label for="User_email">Email:</label>
+        <input type="Login_email" name="email" id="User_email" placeholder="">
+        <label for="User_password">Password:</label>
+        <input type="password" name="password" id="User_password" placeholder="">
+        <button class="btnSubmit" type="submit">Login</button>
+      </div>
+    </form>
+  </section>
+</main>
