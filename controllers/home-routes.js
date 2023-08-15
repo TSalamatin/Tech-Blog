@@ -1,49 +1,7 @@
 const router = require('express').Router();
-const { Post, Comment } = require('../models');
+const { User, Post , Comment } = require('../models');
 
 
-
-// GET Post, and all it comments with the Users attached
-router.get('/post/:id', (req, res) => {
-  Post.findOne({
-          where: {
-              id: req.params.id
-          },
-          attributes: [
-              'id',
-              'content',
-              'title',
-              'date_posted'
-          ],
-          include: [{
-                  model: Comment,
-                  attributes: ['id', 'content', 'post_id', 'user_id', 'date_commented'],
-                  include: {
-                      model: User,
-                      attributes: ['username']
-                  }
-              },
-              {
-                  model: User,
-                  attributes: ['username']
-              }
-          ]
-      })
-      .then(dbPostData => {
-          if (!dbPostData) {
-              res.status(404).json({ message: 'No post found with this id' });
-              return;
-          }
-
-          const post = dbPostData.get({ plain: true });
-         
-          res.render('single-post', { post, loggedIn: req.session.loggedIn });
-      })
-      .catch(err => {
-          console.log(err);
-          res.status(500).json(err);
-      })
-    })
 
 //Get All Posts
 router.get('/', (req, res) => {
@@ -52,20 +10,22 @@ router.get('/', (req, res) => {
               'id',
               'title',
               'content',
-              'created_at'
+              'date_posted'
           ],
-          include: [{
+          include: [
+            {
+                model: User,
+                attributes: ['username']
+            },
+            {
                   model: Comment,
-                  attributes: ['id', 'content', 'post_id', 'user_id', 'dated_commented'],
+                  attributes: ['id', 'content', 'post_id', 'date_commented'],
                   include: {
                       model: User,
                       attributes: ['username']
                   }
               },
-              {
-                  model: User,
-                  attributes: ['username']
-              }
+              
           ]
       })
       .then(dbPostData => {

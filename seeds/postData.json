@@ -1,9 +1,0 @@
-[
-  {
-    "user_id" : 1,
-    "user_name": "Admin",
-    "title": "Test",
-    "content": "Blog Body",
-    "date_posted": "2023/09/08",
-  }
-]

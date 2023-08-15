@@ -1,6 +1,35 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// GET All users
+// This is mostly for API Check
+router.get('/', async (req, res) => {
+  try {
+    const dbUserData = await User.findAll();
+
+    res.status(200).json(dbUserData);
+    ;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// GET 1 users
+// This is mostly for API Check
+router.get('/:id', async (req, res) => {
+  try {
+    const dbUserData = await User.findByPk(req.params.id);
+
+    res.status(200).json(dbUserData);
+    ;
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+
 // CREATE new user
 router.post('/', async (req, res) => {
   try {
@@ -22,16 +51,6 @@ router.post('/', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
 // Login
 router.post('/login', async (req, res) => {
   try {
@@ -41,7 +60,7 @@ router.post('/login', async (req, res) => {
       },
     });
 
-    const validPassword =  dbUserData.checkPassword(req.body.password);
+    const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!dbUserData) {
 
@@ -55,7 +74,7 @@ router.post('/login', async (req, res) => {
       return;
     } else {
 
-      req.session.loggedIn = true;      
+      req.session.loggedIn = true;
 
       res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
     }
