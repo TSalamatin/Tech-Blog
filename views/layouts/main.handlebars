@@ -14,32 +14,44 @@
 <body class="bg-primary">
   <header class="display-flex justify-space-between align-center p-2">
     <h1>
-      Tim's Tech Blog
+      Tech Blog
     </h1>
+    {{#if loggedIn}}
+    <h2>Welcome, {{user.username}}</h2>
+    {{/if}}
     <ul class="nav nav-tabs card-header-tabs  ">
       <li class="nav-item ">
         <a class="nav-link bg-primary text-white " href="/">Homepage</a>
       </li>
+      {{#if loggedIn}}
       <li class="nav-item">
         <a class="nav-link bg-primary text-white " href="/dashboard">Dashboard</a>
       </li>
+
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link bg-primary text-white " href="/login">Dashboard</a>
+      </li>
+      {{/if}}
       <li class="nav-item">
         {{#if loggedIn}}
-        <a class="nav-link bg-primary text-white " href="/logout" method="GET">Logout</a>
+        <a class="nav-link bg-primary text-white" id="logOutNav" href="#">Logout</a>
+
         {{else}}
-        <a class="nav-link bg-primary text-white " href="/login">Login</a>
+        <a class="nav-link bg-primary text-white " id="logInNav" href="/login">Login</a>
         {{/if}}
       </li>
     </ul>
   </header>
   <main class="container container-fluid mt-5 ">
     <div class="row">
-    {{{ body }}}
+      {{{ body }}}
     </div>
   </main>
   <footer>
 
   </footer>
+  <script src="../../public/js/logout.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

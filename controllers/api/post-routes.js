@@ -19,9 +19,13 @@ router.get('/', (req, res) => {
                 },
                 {
                     model: Comment,
-                    attributes: ['id', 'content', 'post_id', 'user_id', 'date_posted'],
+                    attributes: ['id', 'content', 'post_id', 'commenter_id', 'date_commented'],
+                    order: [
+                        ['date_posted', 'DESC']
+                    ],
                     include: {
                         model: User,
+                        as: 'commenter',
                         attributes: ['username']
                     }
                 }
@@ -40,20 +44,19 @@ router.get('/:id', (req, res) => {
             where: {
                 id: req.params.id
             },
-            attributes: ['id',
-                'title',
-                'content',
-                'date_posted'
-            ],
-            include: [{
+            attributes: ['id', 'title', 'content', 'date_posted'],
+            include: [
+                {
                     model: User,
+                   
                     attributes: ['username']
                 },
                 {
                     model: Comment,
-                    attributes: ['id', 'content', 'post_id', 'user_id', 'date_commented'],
+                    attributes: ['id', 'content', 'post_id', 'commenter_id', 'date_commented'],
                     include: {
-                        model: User,
+                        model: User, 
+                        as: 'commenter',
                         attributes: ['username']
                     }
                 }
@@ -64,7 +67,8 @@ router.get('/:id', (req, res) => {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-            res.json(dbPostData);
+           console.log(dbPostData.dataValues)
+            res.render('post', {post: dbPostData.dataValues, loggedIn:req.session.loggedIn, user: req.session.user});
         })
         .catch(err => {
             console.log(err);
@@ -72,7 +76,9 @@ router.get('/:id', (req, res) => {
         });
 });
 
-router.post('/', withAuth, (req, res) => {
+router.post('/',  (req, res) => {
+    console.log('Post Incoming')
+    if (req.body.title && req.body.content){
     Post.create({
             title: req.body.title,
             content: req.body.content,
@@ -83,6 +89,9 @@ router.post('/', withAuth, (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
+    } else {
+        res.status(400)
+    }
 });
 
 router.put('/:id', withAuth, (req, res) => {

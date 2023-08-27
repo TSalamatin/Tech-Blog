@@ -73,9 +73,9 @@ router.post('/login', async (req, res) => {
 
       return;
     } else {
-
       req.session.loggedIn = true;
-
+      req.session.user = dbUserData.username
+      req.session.user_id = dbUserData.id
       res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
     }
 
@@ -84,6 +84,28 @@ router.post('/login', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// SignUp
+router.post('/signup', async (req, res) => {
+  try {
+    console.log(req.body);
+    if (req.body.username && req.body.password && req.body.email) {
+      const dbUserData = await User.create(req.body);
+      console.log(dbUserData);
+      req.session.loggedIn = true;
+      req.session.user = dbUserData.username
+      req.session.user_id = dbUserData.id
+      res.status(200).json('New User Signed Up'); // Send a JSON response
+      
+    } else {
+      res.status(400).json('Failure to Sign up');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 
 // Logout
 router.post('/logout', (req, res) => {

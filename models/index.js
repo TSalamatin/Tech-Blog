@@ -21,6 +21,7 @@ Comment.belongsTo(Post, {
 // Define the association with the User model
 Comment.belongsTo(User, {
     foreignKey: 'user_id',
+    as: 'commenter',
   });
 
 module.exports = { User , Post, Comment};

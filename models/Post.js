@@ -20,7 +20,7 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,    
     },
-    user_name: {
+    poster_name: {
       type: DataTypes.STRING,
       allowNull: false,
       },
@@ -28,7 +28,7 @@ Post.init(
         type: DataTypes.DATE,
         allowNull: false,
     },
-    user_id: {
+    poster_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'user',

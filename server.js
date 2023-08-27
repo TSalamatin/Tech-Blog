@@ -36,6 +36,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sess));
 app.use(routes);
 
+app.use('/public/js', express.static(path.join(__dirname, 'public/js'), { 
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
+
 sequelize.sync().then(() => {
   app.listen(PORT, () =>
     console.log(

@@ -1,9 +1,14 @@
 <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
     <div class="card-header dashboard-post ">
-       <h4 class="card-title post-title"><a class="link" href="/post/{{id}}">{{title}}</a></h4>
+       <h4 class="card-title post-title"><a class="link" href="/api/posts/{{id}}">{{title}}</a></h4>
         <div class="card-body post-body">
         <p class="card-body post-content">{{content}}</p>
         <p class="card-text post-author">Posted by <span class="post-username">{{user.username}}</span> on {{date_posted}}</p>
         </div>
     </div>
 </div>
+{{#each Comments as |Comment| }}
+<article class="comment">
+    {{> comment-details Comment}}
+</article>
+{{/each}}
