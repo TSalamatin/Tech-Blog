@@ -2,15 +2,13 @@
     <h2 class="title column pb-4">Something on your mind? Why not talk about!</h2>
     <form id="post-form" class="card-body">
         <div class="form-row">
-
             <input id="post-title" type="text" autofocus="true" class="form-input form-control" placeholder="Title" />
         </div>
         <div class="form-row mb-3">
-
             <textarea id="post-content" type="text" autofocus="true" class="form-input form-control"
                 placeholder="Content"></textarea>
         </div>
-        <button type="submit" class="btn" onclick=newPost >Post</button>
+        <button type="submit" class="btn" id="post-btn" >Post</button>
     </form>
 </div>
 
@@ -20,27 +18,5 @@
 </article>
 {{/each}}
 
-<script> const newPost = async () => {
-        event.preventDefault();
-
-        const title = document.querySelector('#post-title').value.trim();
-
-        const content = document.querySelector('#post-contetn').value.trim();
-
-        if (title && content) {
-            const response = await fetch(`/api/posts`, {
-                method: 'POST',
-                body: JSON.stringify({ title, content }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                console.log(response)
-            } else {
-                alert('Failed to create blog');
-            }
-        }
-    };
+<script src=".././public/js/post.js"> 
 </script>

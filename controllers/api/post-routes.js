@@ -67,7 +67,7 @@ router.get('/:id', (req, res) => {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-           console.log(dbPostData.dataValues)
+           
             res.render('post', {post: dbPostData.dataValues, loggedIn:req.session.loggedIn, user: req.session.user});
         })
         .catch(err => {
@@ -79,10 +79,13 @@ router.get('/:id', (req, res) => {
 router.post('/',  (req, res) => {
     console.log('Post Incoming')
     if (req.body.title && req.body.content){
+        const currentDate = new Date()
     Post.create({
             title: req.body.title,
             content: req.body.content,
-            user_id: req.session.user_id
+            user_id: req.session.user_id,
+            poster_name: req.session.username,
+            date_posted: currentDate
         })
         .then(dbPostData => res.json(dbPostData))
         .catch(err => {

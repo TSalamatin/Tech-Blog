@@ -1,6 +1,4 @@
-// Attach event listener to the logout link
-
-   async function logOutHandler(event) {
+async function logOutHandler(event) {
     event.preventDefault();
         try {
         const response = await fetch('/api/users/logout', {
