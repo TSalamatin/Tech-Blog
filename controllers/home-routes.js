@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
         attributes: ['id', 'content', 'post_id', 'date_commented'],
         include: {
           model: User,
-          as: 'commenter',
           attributes: ['username']
           
         }
@@ -24,7 +23,6 @@ router.get('/', (req, res) => {
     ]
   })
     .then(dbPostData => {
-
       const posts = dbPostData.map(post => {
         const postPlain = post.get({ plain: true });
 
@@ -32,16 +30,12 @@ router.get('/', (req, res) => {
 
           postPlain.comments = post.Comments.map(comment => {
             const commentPlain = comment.get({ plain: true });
-            console.log(commentPlain)
-            commentPlain.commenterName = comment.commenter.username; // Access commenter's username
+           
             return commentPlain;
           });
         }
         return postPlain;
-      });
-
-
-
+      })
       res.render('homepage', { posts, loggedIn: req.session.loggedIn });
     })
     .catch(err => {
@@ -58,17 +52,29 @@ router.get('/dashboard', (req, res) => {
       { model: User, attributes: ['username'] },
       {
         model: Comment,
-        attributes: ['id', 'content', 'post_id', 'date_commented'],
+        attributes: ['id', 'content',  'date_commented'],
         
         include: { model: User, 
-         as: 'commenter', 
           attributes: ['username'] }
       },
     ],
     where: { user_id: req.session.user_id } // Update this line
   })
     .then(dbPostData => {
-      const posts = dbPostData.map(post => post.get({ plain: true }));
+      
+      const posts = dbPostData.map(post => {
+        const postPlain = post.get({ plain: true });
+
+        if (post.Comments) {
+
+          postPlain.comments = post.Comments.map(comment => {
+            const commentPlain = comment.get({ plain: true });
+           
+            return commentPlain;
+          });
+        }
+        return postPlain;
+      })
       res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
     })
     .catch(err => {

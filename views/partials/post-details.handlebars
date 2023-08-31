@@ -5,10 +5,11 @@
         <p class="card-body post-content">{{content}}</p>
         <p class="card-text post-author">Posted by <span class="post-username">{{user.username}}</span> on {{date_posted}}</p>
         </div>
+        
     </div>
 </div>
-{{#each Comments as |Comment| }}
+{{#each post.comments as |comment| }}
 <article class="comment">
-    {{> comment-details Comment}}
+  {{> comment-details comment}}
 </article>
 {{/each}}

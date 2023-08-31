@@ -16,7 +16,7 @@ const newPost = async (event) => {
             });
 
             if (response.ok) {
-                console.log(response)
+            
             } else {
                 alert('Failed to create blog');
             }

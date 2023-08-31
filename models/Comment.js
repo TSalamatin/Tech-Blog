@@ -18,21 +18,7 @@ Comment.init(
     },
     date_commented: {
       type: DataTypes.DATE,
-      allowNull: false,
-    },
-    post_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'post',
-        key: 'id',
-      }
-    },
-    commenter_id: { 
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'user',
-        key: 'id',
-      }
+      defaultValue: DataTypes.NOW
     },
   },
   {

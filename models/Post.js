@@ -20,20 +20,9 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,    
     },
-    poster_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      },
     date_posted: {
         type: DataTypes.DATE,
         allowNull: false,
-    },
-    poster_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'user',
-        key: 'id',
-      }
     },
   },
   {

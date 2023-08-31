@@ -1,16 +1,19 @@
-<div class="container row">
-<div class="comments">
-  {{#each this}}
+<div class="container row comments">
+
+ 
     <div class="card post comment-box">
     <div class="card-body post-body">
         <div class="card-text comment-text">
             {{content}}
         </div>
         <div class="comment-author">
-            -{{user.username}}, {{date_commented}}
+           By {{user.username}}, 
+        </div>
+        <div class ="comment-date">
+            Commented on: {{date_commented}}
         </div>
     </div>
     </div>
-  {{/each}}
+ 
 </div>
-</div>
+<script>console.log('Here')</script>

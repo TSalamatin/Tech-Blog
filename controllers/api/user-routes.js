@@ -76,7 +76,7 @@ router.post('/login', async (req, res) => {
       req.session.loggedIn = true;
       req.session.user = dbUserData.username
       req.session.user_id = dbUserData.id
-      res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
+      res.status(200).render('homepage',{ loggedIn: true, user_id: req.session.user_id});
     }
 
   } catch (err) {
@@ -95,7 +95,7 @@ router.post('/signup', async (req, res) => {
       req.session.loggedIn = true;
       req.session.user = dbUserData.username
       req.session.user_id = dbUserData.id
-      res.status(200).json('New User Signed Up'); // Send a JSON response
+      res.status(200).render('homepage',{ loggedIn: true, user_id: req.session.user_id}); 
       
     } else {
       res.status(400).json('Failure to Sign up');

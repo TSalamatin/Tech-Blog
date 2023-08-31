@@ -15,7 +15,7 @@ async function loginForm(event) {
           headers: { 'Content-Type': 'application/json' }
         });
         if (response.ok) {
-          // Successful signup, redirect the user
+        
           window.location.href = '/'; 
         
         } else {

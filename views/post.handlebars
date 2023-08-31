@@ -1,23 +1,65 @@
 <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
-    <div class="card-header dashboard-post ">
-        <h4 class="card-title post-title">{{post.title}}</h4>
-        <div class="card-body post-body">
-            <p class="card-body post-content">{{post.content}}</p>
-            <p class="card-text post-author">Posted by <span class="post-username">{{post.poster_name}}</span> on
-                {{post.date_posted}}</p>
-        </div>
+  <div class="card-header dashboard-post ">
+    <h4 class="card-title post-title">{{post.title}}</h4>
+    <div class="card-body post-body">
+      <p class="card-body post-content">{{post.content}}</p>
+      <p class="card-text post-author">Posted by <span class="post-username">{{post.user.username}}</span>
+      on{{post.date_posted}}
+      </p>
+       {{#if req.session.user_id==user.id}}
+       Sucess
+       {{/if}}
     </div>
+  </div>
 </div>
-<form>
-    <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
-        <div class="card-header dashboard-post">
-            <input id="optional-comment" type="text" autofocus="true" style="margin: 0.5%; width: 85%"/><button type="submit"  class="btn btn-primary" id="comment-btn btn">Comment</button>
-        </div>
+{{#if loggedIn}}
+  <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
+    <div class="card-header dashboard-post">
+     
+      <form>
+        <input id="optional-comment" type="text" autofocus="true" style="margin: 0.5%; width: 85%" />
+        <button type="submit" class="btn btn-primary" id="comment-btn">Comment</button>
+        </form>
     </div>
-    </div>
-</form>
-{{#each Comments as |Comment| }}
+  </div>
+  
+
+{{/if}}
+{{#each post.comments as |comment| }}
 <article class="comment">
-    {{> comment-details Comment}}
+  {{> comment-details comment}}
 </article>
 {{/each}}
+
+<script>
+  
+  async function comment(event) {
+    event.preventDefault()
+
+
+    const content = document.querySelector('#optional-comment').value.trim();
+    const post_id = parseInt("{{post.id}}")
+
+  
+  console.log('Post ID  ' + post_id )
+  if (content) {
+    try {
+      const response = await fetch('/api/comments/', {
+        method: 'POST',
+        body: JSON.stringify({
+          content,
+          post_id
+        }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+    } catch (error) {
+      console.error('Error while adding a comment:', error);
+    }
+  }
+  
+  }
+
+
+  document.querySelector('form').addEventListener('submit', comment);
+</script>

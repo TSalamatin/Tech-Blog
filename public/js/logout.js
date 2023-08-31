@@ -1,4 +1,4 @@
-async function logOutHandler(event) {
+async function logOut(event) {
     event.preventDefault();
         try {
         const response = await fetch('/api/users/logout', {
@@ -7,9 +7,7 @@ async function logOutHandler(event) {
         });
 
         if (response.ok) {
-            // Clear any session-related data on the client side
-            // Redirect the user to the login page or homepage
-            window.location.href = '/login'; // Or '/'
+            window.location.href = '/'; 
         } else {
             console.log('Logout failed:', response.status, response.statusText);
         }
@@ -18,4 +16,4 @@ async function logOutHandler(event) {
     }
 };
 
-document.querySelector('#logOutNav').addEventListener('click', logOutHandler);
+document.querySelector('#logOutNav').addEventListener('click', logOut);
