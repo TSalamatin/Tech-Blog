@@ -13,12 +13,16 @@
 
 <body class="bg-primary">
   <header class="display-flex justify-space-between align-center p-2">
-    <h1>
-      Tech Blog
+    <div class="row">
+    <h1 class="col">
+      Tim's Tech Blog
     </h1>
     {{#if loggedIn}}
-    <h2>Welcome, {{user.username}}</h2>
+    <h2 class="col">
+      Welcome, {{user_username}}
+      </h2>
     {{/if}}
+    </div>
     <ul class="nav nav-tabs card-header-tabs  ">
       <li class="nav-item ">
         <a class="nav-link bg-primary text-white " href="/">Homepage</a>
@@ -35,13 +39,16 @@
       {{/if}}
       <li class="nav-item">
         {{#if loggedIn}}
-        <a class="nav-link bg-primary text-white" id="logOutNav" href="#">Logout</a>
+        <a class="nav-link bg-primary text-white" id="logOutNav" href="/">Logout</a>
 
         {{else}}
         <a class="nav-link bg-primary text-white " id="logInNav" href="/login">Login</a>
         {{/if}}
       </li>
     </ul>
+    
+
+
   </header>
   <main class="container container-fluid mt-5 ">
     <div class="row">
@@ -61,6 +68,7 @@
     integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
     crossorigin="anonymous"></script>
 <script src="../../public/js/logout.js"></script>
+
 
 </body>
 

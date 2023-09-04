@@ -16,7 +16,7 @@ const newPost = async (event) => {
             });
 
             if (response.ok) {
-            
+                window.location.href = '/dashboard'; 
             } else {
                 alert('Failed to create blog');
             }

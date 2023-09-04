@@ -36,7 +36,8 @@ router.get('/', (req, res) => {
         }
         return postPlain;
       })
-      res.render('homepage', { posts, loggedIn: req.session.loggedIn });
+     
+      res.render('homepage', { posts, loggedIn: req.session.loggedIn, user_username: req.session.username });
     })
     .catch(err => {
       console.log(err);
@@ -58,7 +59,7 @@ router.get('/dashboard', (req, res) => {
           attributes: ['username'] }
       },
     ],
-    where: { user_id: req.session.user_id } // Update this line
+    where: { user_id: req.session.user_id }
   })
     .then(dbPostData => {
       
@@ -75,7 +76,8 @@ router.get('/dashboard', (req, res) => {
         }
         return postPlain;
       })
-      res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
+      
+      res.render('dashboard', { posts, loggedIn: req.session.loggedIn, user_username: req.session.username});
     })
     .catch(err => {
       console.log(err);
@@ -90,7 +92,7 @@ router.get('/login', (req, res) => {
     res.redirect('/')
     return;
   }
-  res.render('login')
+  res.render('login', )
 })
 
 

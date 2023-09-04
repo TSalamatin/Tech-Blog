@@ -3,6 +3,8 @@ const { Post, User, Comment } = require('../../models');
 
 const withAuth = require('../../utils/auth');
 
+
+
 router.get('/', (req, res) => {
     Post.findAll({
         attributes: ['id',
@@ -75,9 +77,8 @@ router.get('/:id', (req, res) => {
                     return commentPlain;
                   });
                 }
-                console.log(postPlain)
-             
-            res.render('post', { post: postPlain, loggedIn: req.session.loggedIn,  });
+              
+            res.render('post', { post: postPlain, loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_username: req.session.username});
         })
         .catch(err => {
             console.log(err);

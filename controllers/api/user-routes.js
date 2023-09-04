@@ -59,6 +59,7 @@ router.post('/login', async (req, res) => {
         email: req.body.email,
       },
     });
+    
 
     const validPassword = dbUserData.checkPassword(req.body.password);
 
@@ -73,10 +74,12 @@ router.post('/login', async (req, res) => {
 
       return;
     } else {
+      
       req.session.loggedIn = true;
-      req.session.user = dbUserData.username
-      req.session.user_id = dbUserData.id
-      res.status(200).render('homepage',{ loggedIn: true, user_id: req.session.user_id});
+      req.session.username = dbUserData.dataValues.username
+      req.session.user_id = dbUserData.dataValues.id
+     
+      res.status(200).render('homepage',{ loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_username: req.session.username});
     }
 
   } catch (err) {
@@ -93,9 +96,10 @@ router.post('/signup', async (req, res) => {
       const dbUserData = await User.create(req.body);
       console.log(dbUserData);
       req.session.loggedIn = true;
-      req.session.user = dbUserData.username
+      req.session.username = dbUserData.username
       req.session.user_id = dbUserData.id
-      res.status(200).render('homepage',{ loggedIn: true, user_id: req.session.user_id}); 
+      
+      res.status(200).render('homepage',{ loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_username: req.session.username}); 
       
     } else {
       res.status(400).json('Failure to Sign up');

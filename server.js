@@ -4,6 +4,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create();
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const Handlebars = require('handlebars')
 
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
@@ -26,6 +27,11 @@ const sess = {
       db: sequelize,
     }),
 };
+
+
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
 
 
 app.engine('handlebars', hbs.engine);

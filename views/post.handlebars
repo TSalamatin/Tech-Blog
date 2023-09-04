@@ -1,30 +1,32 @@
+{{log post}}
 <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
   <div class="card-header dashboard-post ">
     <h4 class="card-title post-title">{{post.title}}</h4>
     <div class="card-body post-body">
-      <p class="card-body post-content">{{post.content}}</p>
+      <input disabled="true" class="card-body post-content" value="{{post.content}}" style="border: 0px">
       <p class="card-text post-author">Posted by <span class="post-username">{{post.user.username}}</span>
-      on{{post.date_posted}}
+      on: {{post.date_posted}}
       </p>
-       {{#if req.session.user_id==user.id}}
-       Sucess
-       {{/if}}
-    </div>
   </div>
 </div>
+
+
+<form id="edit-form" style="display: none;">
+  <button type="button" class="btn btn-success" id="update-btn" >Update Post</button>
+  <button type="button" class="btn btn-danger" id="delete-btn" >Delete Post</button>
+</form>
 {{#if loggedIn}}
-  <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
-    <div class="card-header dashboard-post">
+  <div class="container row card text-bg-light mb-3border border-black rounded-2" >
+    <div class="card-header" >
      
-      <form>
-        <input id="optional-comment" type="text" autofocus="true" style="margin: 0.5%; width: 85%" />
-        <button type="submit" class="btn btn-primary" id="comment-btn">Comment</button>
+      <form class="post-comment" style="display: flex;">
+        <textarea id="optional-comment" class="card=body" autofocus="true" style="margin: 0.5%; width: 85%"></textarea>
+        <button type="submit" class="btn btn-primary" id="comment-btn" >Comment</button>
         </form>
     </div>
   </div>
-  
-
 {{/if}}
+
 {{#each post.comments as |comment| }}
 <article class="comment">
   {{> comment-details comment}}
@@ -32,34 +34,97 @@
 {{/each}}
 
 <script>
-  
-  async function comment(event) {
-    event.preventDefault()
 
+  const postConent = document.querySelector('.card-body.post-content')
+  postUserID = {{post.user.id}}
+  currentUserID = {{user_id}}
+ 
+  if (postUserID === currentUserID){
+    const elementStyle = document.querySelector('#edit-form').style
+    elementStyle.display = 'flex'
+    elementStyle.flexFlow= 'wrap'
+    elementStyle.justifyContent= 'space-around'
+    elementStyle.alignItems='flex-start'
+     elementStyle.flexDirection='wrap'
+
+    postConent.removeAttribute('disabled')
+    postConent.style.border = '1px solid black'
+    const correctPoster = true
+
+  } else {
+    postConent.setAttribute('disabled', 'true')
+  postConent.style.border = '0px'
+  const correctPoster = false
+  }
+
+
+  async function updatePost() {
+
+    const newContent = document.querySelector('.card-body.post-content').value
+    const postId = {{post.id}}
+  if ( correctPoster = true){
+    if (newContent.trim() !== '') {
+      try {
+        const response = await fetch(`/api/posts/${postId}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            content: newContent, 
+            }),
+        headers: { 'Content-Type': 'application/json' }
+        });
+        } catch (error) {
+          console.error('Error while updating the post:', error);
+          }
+         window.location.href = '/dashboard';
+        } else {
+            window.alert('Updated Posts Cannot be Empty!')
+        }
+  } else {}
+        }
+
+  async function deletePost() {
+if ( correctPoster = true){
+    if (confirm('Are you sure you want to delete this post?')) {
+      const postId = {{post.id}};
+        try {
+          const response = await fetch(`/api/posts/${postId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+              });
+              window.location.href = '/dashboard'; 
+            } catch (error) {
+                console.error('Error while deleting the post:', error);
+            }
+        }
+    } else {}
+  }
+
+  async function commentPost(event) {
+    event.preventDefault()
 
     const content = document.querySelector('#optional-comment').value.trim();
     const post_id = parseInt("{{post.id}}")
 
-  
-  console.log('Post ID  ' + post_id )
-  if (content) {
-    try {
-      const response = await fetch('/api/comments/', {
-        method: 'POST',
-        body: JSON.stringify({
-          content,
-          post_id
-        }),
-        headers: { 'Content-Type': 'application/json' }
-      });
 
-    } catch (error) {
-      console.error('Error while adding a comment:', error);
+    if (content) {
+      try {
+        const response = await fetch('/api/comments/', {
+         method: 'POST',
+          body: JSON.stringify({
+            content,
+            post_id
+          }),
+          headers: { 'Content-Type': 'application/json' }
+        });
+       window.location.href = '/'; 
+      } catch (error) {
+        console.error('Error while adding a comment:', error);
+      }
     }
-  }
-  
+
   }
 
-
-  document.querySelector('form').addEventListener('submit', comment);
+document.querySelector('#comment-btn').addEventListener('click',commentPost)
+document.querySelector('#delete-btn').addEventListener('click', deletePost)
+document.querySelector('#update-btn').addEventListener('click', updatePost)
 </script>
