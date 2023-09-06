@@ -13,11 +13,7 @@ In this application, I demonstate the capability of using Sequelize, APIs, and E
 
 - [Usage Information](#usage-information)
 
-- [Credits](#credits)
-
 - [License](#license)
-
-- [Tests](#tests)
 
 - [My Links](#contact)
 
@@ -30,19 +26,11 @@ In this application, I demonstate the capability of using Sequelize, APIs, and E
     
     This application is a simple forum, with the capibility of looking at posts and comments, but unable to post unless you login into the site. You are able to make an account, then able to post blogs as well as comment on blogs. If the blog is your own, you are able to update the text of the blog, as well as delete the blog. 
     
-#Credits
-    
-    undefined
-    
+
 #License
     
     This application is covered under
     GNU AGPLv3
-    
-        
-#Tests
-    
-    
     
 #Contact
 
