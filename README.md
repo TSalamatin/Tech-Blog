@@ -3,7 +3,7 @@
 
 ## Description
     
-In this application, I demonstate the capability of using Sequelize, APIs, and Express-Handlebars.
+In this application, I have created a simple forum using Node.JS and MySQL. The forum has the capibility of displaying posts, and posts' comments when selected. To post your own content, you must make an account through the application, which will be stored on a MySQL database. It will also give a session cookie so the user may return to the forum still logged in, for the near future, then will be logged out.
 
 ## Table of Contents
     
@@ -13,14 +13,12 @@ In this application, I demonstate the capability of using Sequelize, APIs, and E
 
 - [Usage Information](#usage-information)
 
-- [License](#license)
-
 - [My Links](#contact)
 
     
 #Installation Instructions
     
-    Simply Copy the repo, cd down to the applicaiton folder, and run 'npm i' in the terminal to download the packages needed. Then run 'npm run start' to run the server.
+    To install this application, you must have Node.JS and MySql installed on your device. Clone the repo, and run 'npm install' in the terminal to download the needed packages. Create a .env file to connect to your database credentials to the application, you may use whatever database you would like to call it, otherwise it will default to 'techBlog_db'. You may run 'npm run seed' to get a example post on the homepage. 
     
 #Usage Information
     
