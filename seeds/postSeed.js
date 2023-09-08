@@ -2,12 +2,11 @@ const { Post } = require('../models');
 
 const postData = 
     {
-      "id" : 1,
+      "id" : 0,
       "title": "Test",
       "content": "Blog Body",
       "date_posted": "2023/09/08",
-      "poster_id" : 1,
-      "poster_name": "Admin"
+      "user_id": 1
     }
   
 

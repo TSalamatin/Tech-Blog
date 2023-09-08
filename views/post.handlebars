@@ -39,7 +39,8 @@
   const postConent = document.querySelector('.card-body.post-content')
   postUserID = {{post.user.id}}
   currentUserID = {{user_id}}
- 
+  console.log(postUserID)
+  console.log(currentUserID)
   if (postUserID === currentUserID){
     const elementStyle = document.querySelector('#edit-form').style
     elementStyle.display = 'flex'
