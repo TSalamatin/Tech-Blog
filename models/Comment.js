@@ -17,8 +17,8 @@ Comment.init(
       allowNull: false,    
     },
     date_commented: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      type: DataTypes.STRING,
+      allowNull: false
     },
   },
   {

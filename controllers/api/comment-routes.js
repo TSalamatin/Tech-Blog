@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
-const withAuth = require('../../utils/auth');
+const { withAuth, TodayDate} = require('../../utils');
 
 router.get('/', (req, res) => {
     Comment.findAll({})
@@ -25,11 +25,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-   
+   const date = TodayDate()
     Comment.create({
+        
         content: req.body.content,
         post_id: req.body.post_id,
         user_id: req.session.user_id,
+        date_commented: date
     })
     .then(dbCommentData => res.json(dbCommentData))
     .catch(err => {

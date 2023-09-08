@@ -1,4 +1,4 @@
-{{log post}}
+
 <div class="container row card text-bg-light mb-3border border-black rounded-2" style="border-width: 3px">
   <div class="card-header dashboard-post ">
     <h4 class="card-title post-title">{{post.title}}</h4>
@@ -8,13 +8,14 @@
       on: {{post.date_posted}}
       </p>
   </div>
-</div>
-
-
-<form id="edit-form" style="display: none;">
+  <form id="edit-form" style="display: none;">
   <button type="button" class="btn btn-success" id="update-btn" >Update Post</button>
   <button type="button" class="btn btn-danger" id="delete-btn" >Delete Post</button>
 </form>
+</div>
+
+
+
 {{#if loggedIn}}
   <div class="container row card text-bg-light mb-3border border-black rounded-2" >
     <div class="card-header" >
@@ -43,7 +44,7 @@
     const elementStyle = document.querySelector('#edit-form').style
     elementStyle.display = 'flex'
     elementStyle.flexFlow= 'wrap'
-    elementStyle.justifyContent= 'space-around'
+    elementStyle.justifyContent= 'space-between'
     elementStyle.alignItems='flex-start'
      elementStyle.flexDirection='wrap'
 

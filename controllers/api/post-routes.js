@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
-
-const withAuth = require('../../utils/auth');
+const { withAuth, TodayDate} = require('../../utils');
 
 
 
@@ -86,15 +85,15 @@ router.get('/:id', (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
+router.post('/', withAuth ,(req, res) => {
     console.log('Post Incoming')
     if (req.body.title && req.body.content) {
-        const currentDate = new Date()
+       const date = TodayDate()
         Post.create({
             title: req.body.title,
             content: req.body.content,
             user_id: req.session.user_id,
-            date_posted: currentDate
+            date_posted: date
         })
             .then(dbPostData => res.json(dbPostData))
             .catch(err => {
