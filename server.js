@@ -50,7 +50,7 @@ app.use('/public/js', express.static(path.join(__dirname, 'public/js'), {
   }
 }));
 
-sequelize.sync( {force:false}).then(() => {
+sequelize.sync( {force:true}).then(() => {
   app.listen(PORT, () =>
     console.log(
       `\nServer running on port ${PORT}. Visit http://localhost:${PORT}`
