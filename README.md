@@ -3,11 +3,10 @@
 
 
 
-![Sep 7, 2023 10_13 PM](https://github.com/TSalamatin/Tech-Blog/assets/128180862/6511e086-37e8-4628-a24f-15676c249b88)
-
-
 
 ## Description
+
+![Sep 7, 2023 10_13 PM](https://github.com/TSalamatin/Tech-Blog/assets/128180862/6511e086-37e8-4628-a24f-15676c249b88)
     
 In this application, I have created a simple forum using Node.JS and MySQL. The forum has the capibility of displaying posts, and posts' comments when selected. To post your own content, you must make an account through the application, which will be stored on a MySQL database. It will also give a session cookie so the user may return to the forum still logged in, for the near future, then will be logged out.
 
