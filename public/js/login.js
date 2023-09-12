@@ -16,7 +16,7 @@ async function loginForm(event) {
         });
         if (response.ok) {
         
-          window.location.href = '/'; 
+          window.location.href = '/dashboard'; 
         
         } else {
           // Handle signup failure

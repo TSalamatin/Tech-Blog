@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: User,
-                attributes: ['username','id']
+                attributes: ['username', 'id']
             },
             {
                 model: Comment,
@@ -61,29 +61,34 @@ router.get('/:id', (req, res) => {
         ]
     })
         .then(dbPostData => {
+           
             if (!dbPostData) {
                 res.status(404).json({ message: 'No post found with this id' });
                 return;
             }
-          
-                const postPlain = dbPostData.get({ plain: true });
-        
-                if (postPlain.Comments) {
-        
-                  postPlain.comments = postPlain.Comments.map(comment => {
+
+            const postPlain = dbPostData.get({ plain: true });
+                console.log(postPlain)
+            if (postPlain.comments) {
+                postPlain.comments = postPlain.comments.map(comment => {
                     const commentPlain = comment.get({ plain: true });
-                   
                     return commentPlain;
-                  });
-                }
-              
-            res.render('post', { post: postPlain, loggedIn: req.session.loggedIn, user_id: req.session.user_id, user_username: req.session.username});
+                });
+            }
+
+            res.render('post', {
+                post: postPlain,
+                loggedIn: req.session.loggedIn,
+                user_id: req.session.user_id,
+                user_username: req.session.username
+            });
         })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
         });
 });
+
 
 router.post('/', withAuth ,(req, res) => {
     console.log('Post Incoming')

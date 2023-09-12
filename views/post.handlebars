@@ -28,9 +28,9 @@
   </div>
 {{/if}}
 
-{{#each post.comments as |comment| }}
+{{#each post.Comments as |Comment| }}
 <article class="comment">
-  {{> comment-details comment}}
+  {{> comment-details Comment}}
 </article>
 {{/each}}
 
@@ -118,7 +118,7 @@ if ( correctPoster = true){
           }),
           headers: { 'Content-Type': 'application/json' }
         });
-       window.location.href = '/'; 
+       location.reload(); 
       } catch (error) {
         console.error('Error while adding a comment:', error);
       }
