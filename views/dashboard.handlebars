@@ -1,14 +1,13 @@
-<div class="col text-bg-light mb-3border p-3 border-black rounded-2">
+<div class="col text-bg-light mb-3 border p-3 border-black rounded-2">
     <h2 class="title column pb-4">Something on your mind? Why not talk about!</h2>
     <form id="post-form" class="card-body">
         <div class="form-row">
-            <input id="post-title" type="text" autofocus="true" class="form-input form-control" placeholder="Title" />
+            <input id="post-title" type="text" class="form-input form-control" placeholder="Title" autofocus />
         </div>
         <div class="form-row mb-3">
-            <textarea id="post-content" type="text" autofocus="true" class="form-input form-control"
-                placeholder="Content"></textarea>
+            <textarea id="post-content" type="text" class="form-input form-control" placeholder="Content" autofocus></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" id="post-btn " >Post</button>
+        <button type="submit" class="btn btn-primary" id="post-btn">Post</button>
     </form>
 </div>
 
@@ -18,5 +17,8 @@
 </article>
 {{/each}}
 
-<script src=".././public/js/post.js"> 
+
+<script src="../public/js/post.js"> 
+
+
 </script>
