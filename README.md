@@ -4,12 +4,13 @@
 
 ## Description
 
-    
 In this application, I have created a simple forum delpoyed on Heroku using Node.JS and JAWSDB. The forum has the capibility of displaying posts, and posts' comments when selected. To post your own content, you must make an account through the application, which will be stored on a MySQL database. It will also give a session cookie so the user may return to the forum still logged in, for the near future, then will be logged out.
 
+![Untitled_ Sep 11, 2023 10_23 PM](https://github.com/TSalamatin/Tech-Blog/assets/128180862/cfa8df4c-1866-4696-95d2-1d9b0961561b)
+
+
+
 ## Table of Contents
-    
-   
     
 - [Installation Instructions](#installation-instructions)
 
